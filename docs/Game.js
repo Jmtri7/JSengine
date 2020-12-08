@@ -6,8 +6,24 @@ class Game {
 	Render(renderer) {
 		renderer.Clear();
 
+		renderer.DrawText(
+				30, 30,
+				"Renderer Test",
+				30
+		);
+
+		renderer.DrawText(
+				30, 60,
+				"Press 'W'",
+				30
+		);
+
 		if(this.moveUp) {
-			renderer.PaintRectangle(0, 0, 10, 10);
+			renderer.DrawText(
+				30, 90,
+				"'W' key pressed!",
+				30
+			);
 		}
 	}
 

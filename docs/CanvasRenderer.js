@@ -13,6 +13,13 @@ class CanvasRenderer {
     	document.body.appendChild(this.c);
   	}
 
+  	// TEXT
+
+  	DrawText(x, y, text, size) {
+  		this.ctx.font = size + "px Arial";
+		this.ctx.fillText(text, x, y); 
+  	}
+
 	// DRAWING
 
 	DrawLine(x1, y1, x2, y2) {
