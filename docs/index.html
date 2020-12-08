@@ -5,18 +5,20 @@
 	<title>JSengine</title>
 </head>
 <body>
+<script src="engine/CanvasRenderer.js"></script>
+<script src="engine/Input.js"></script> 
+<script src="engine/Clock.js"></script>
+<script src="engine/Engine.js"></script>
 
-<script src="CanvasRenderer.js"></script>
-<script src="Input.js"></script> 
-<script src="Clock.js"></script>
+<script src="game/Game.js"></script>
+<script src="game/Board.js"></script>
+<script src="game/Piece.js"></script>
 
-<script src="Engine.js"></script>
-<script src="Game.js"></script>
+<script src="game/controllers/PlayerController.js"></script>
 
 <script type="text/javascript">
 	var engine = new Engine();
 	engine.Start();
 </script>
-
 </body>
 </html>

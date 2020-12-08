@@ -13,10 +13,13 @@ class CanvasRenderer {
     	document.body.appendChild(this.c);
   	}
 
+  	// ADVANCED SHAPES
+
   	// TEXT
 
   	DrawText(x, y, text, size) {
   		this.ctx.font = size + "px Arial";
+  		this.ctx.fillStyle = "#000000";
 		this.ctx.fillText(text, x, y); 
   	}
 
