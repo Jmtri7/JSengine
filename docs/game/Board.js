@@ -8,14 +8,24 @@ class Board {
 		this.pc = new PlayerController(null);
 	}
 
+	DetectCollision(piece1, piece2) {
+		if(
+			piece1.x + piece1.width >= piece2.x
+			&& piece1.x <= piece2.x + piece2.width
+			&& piece1.y + piece1.height >= piece2.y
+  			&& piece1.y <= piece2.y + piece2.height
+  		) return true;
+		return false;
+	}
+
 	AddPlayer(x, y, width, height) {
-		var piece = new Piece(x, y, width, height);
+		var piece = new Piece(x, y, width, height, this);
 		this.pieces.push(piece);
 		this.pc.piece = piece;
 	}
 
 	AddPiece(x, y, width, height) {
-		this.pieces.push(new Piece(x, y, width, height));
+		this.pieces.push(new Piece(x, y, width, height, this));
 	}
 
 	Render(renderer) {

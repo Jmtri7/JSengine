@@ -1,15 +1,20 @@
 class Piece {
-	constructor(x, y, width, height) {
+	constructor(x, y, width, height, board) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
 
 		this.direction = 0;
+
+		this.board = board;
 	}
 
 	Move(direction) {
 		this.direction = direction;
+
+		var oldX = this.x;
+		var oldY = this.y;
 
 		switch(this.direction) {
 			case 0:
@@ -40,6 +45,19 @@ class Piece {
 				this.x--;
 				this.y--;
 			break;
+		}
+
+		var collisionDetected = false;
+		for(var i = 0; i < this.board.pieces.length; i++) {
+			if(this.board.pieces[i] != this) {
+				collisionDetected = collisionDetected
+					|| this.board.DetectCollision(this.board.pieces[i], this);
+			}
+		}
+
+		if(collisionDetected) {
+			this.x = oldX;
+			this.y = oldY;
 		}
 	}
 

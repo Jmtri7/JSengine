@@ -1,6 +1,6 @@
 class Engine {
 	constructor() {
-		this.renderer = new CanvasRenderer(500, 500);
+		this.renderer = new CanvasRenderer(800, 800);
 		this.input = new Input();
 		this.clock = new Clock();
 
