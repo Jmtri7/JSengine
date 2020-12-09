@@ -6,7 +6,11 @@ class Board {
 		this.pieces = [];
 
 		this.pc = new PlayerController(null);
+
+		this.renderView = 0;
 	}
+
+	// collisions
 
 	DetectOutOfBounds(piece) {
 		return(
@@ -26,6 +30,8 @@ class Board {
   		);
 	}
 
+	// add pieces
+
 	AddPlayer(width, height, x, y, direction) {
 		var piece = new Piece(width, height, x, y, this, direction);
 		this.pieces.push(piece);
@@ -36,17 +42,41 @@ class Board {
 		this.pieces.push(new Piece(width, height, x, y, this, direction));
 	}
 
-	Render(renderer) {
-		renderer.SetOrigin(renderer.c.width / 2 - this.pc.piece.x, renderer.c.height / 2 - this.pc.piece.y);
+	// perspective calculator
 
-		renderer.PaintRectangle(0, 0, this.width, this.height, "#00ff00");
+	GetDistance(piece1, piece2) {
+		
+	}
+
+	GetAngle(piece1, piece2) {
+		// if(dy >= 0) {
+		// 	var theta = Math.abs(Math.atan2(dy, dx));
+		// } else {
+		// 	var theta = 2 * Math.PI - Math.abs(Math.atan2(dy, dx));
+		// }
+	}
+
+	// render / update
+
+	Render(renderer) {
+		if(this.renderView == 0) {
+			if(this.pc.piece != null) renderer.SetOrigin(renderer.c.width / 2 - this.pc.piece.x, renderer.c.height / 2 - this.pc.piece.y);
+
+			renderer.PaintRectangle(0, 0, this.width, this.height, "#00ff00");
 	
-		for(var i = 0; i < this.pieces.length; i++) {
-			this.pieces[i].Render(renderer);
+			for(var i = 0; i < this.pieces.length; i++) {
+				this.pieces[i].Render(renderer);
+			}
+		} else if(this.renderView == 1) {
+			renderer.SetOrigin(0, 0);
+			renderer.PaintRectangle(0, renderer.c.height / 2, renderer.c.width, renderer.c.height / 2, "#00ff00");
 		}
 	}
 
 	Update(input) {
+		if(input.IsKey(49)) this.renderView = 0;
+		else if(input.IsKey(50)) this.renderView = 1;
+
 		this.pc.Update(input);
 	}
 }
