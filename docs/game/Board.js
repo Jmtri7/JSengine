@@ -8,14 +8,22 @@ class Board {
 		this.pc = new PlayerController(null);
 	}
 
+	DetectOutOfBounds(piece) {
+		return(
+			piece.x <= 0
+			|| piece.x + piece.width >= this.width
+			|| piece.y <= 0
+			|| piece.y + piece.height >= this.height
+		);
+	}
+
 	DetectCollision(piece1, piece2) {
-		if(
-			piece1.x + piece1.width >= piece2.x
+		return (
+  			piece1.x + piece1.width >= piece2.x
 			&& piece1.x <= piece2.x + piece2.width
 			&& piece1.y + piece1.height >= piece2.y
   			&& piece1.y <= piece2.y + piece2.height
-  		) return true;
-		return false;
+  		);
 	}
 
 	AddPlayer(x, y, width, height) {

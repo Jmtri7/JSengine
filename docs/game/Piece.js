@@ -47,7 +47,7 @@ class Piece {
 			break;
 		}
 
-		var collisionDetected = false;
+		var collisionDetected = this.board.DetectOutOfBounds(this);
 		for(var i = 0; i < this.board.pieces.length; i++) {
 			if(this.board.pieces[i] != this) {
 				collisionDetected = collisionDetected
