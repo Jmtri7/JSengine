@@ -26,14 +26,14 @@ class Board {
   		);
 	}
 
-	AddPlayer(x, y, width, height) {
-		var piece = new Piece(x, y, width, height, this);
+	AddPlayer(width, height, x, y, direction) {
+		var piece = new Piece(width, height, x, y, this, direction);
 		this.pieces.push(piece);
 		this.pc.piece = piece;
 	}
 
-	AddPiece(x, y, width, height) {
-		this.pieces.push(new Piece(x, y, width, height, this));
+	AddPiece(width, height, x, y, direction) {
+		this.pieces.push(new Piece(width, height, x, y, this, direction));
 	}
 
 	Render(renderer) {

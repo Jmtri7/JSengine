@@ -1,13 +1,12 @@
 class Piece {
-	constructor(x, y, width, height, board) {
-		this.x = x;
-		this.y = y;
+	constructor(width, height, x, y, board, direction) {
 		this.width = width;
 		this.height = height;
 
-		this.direction = 0;
-
+		this.x = x;
+		this.y = y;
 		this.board = board;
+		this.direction = direction;
 	}
 
 	Move(direction) {
