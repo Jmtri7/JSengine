@@ -43,27 +43,47 @@ class PlayerController {
 
 		// character controls
 		if(this.piece != null) {
-
-			// WASD movement
-
+			// WASD
 			var UD = input.IsKey(87) - input.IsKey(83);
 			var LR = input.IsKey(68) - input.IsKey(65);
 
-			if(UD == 1) {
-				if(LR == 1) this.piece.Move(1);
-				else if(LR == -1) this.piece.Move(7);
-				else this.piece.Move(0);
-			} 
-			else if(UD == -1) {
-				if(LR == 1) this.piece.Move(3);
-				else if(LR == -1) this.piece.Move(5);
-				else this.piece.Move(4);
+			// shift
+			if(input.IsKey(16)) {
+				// turning
+				if(UD == 1) {
+					if(LR == 1) this.piece.Face(1);
+					else if(LR == -1) this.piece.Face(7);
+					else this.piece.Face(0);
+				} 
+				else if(UD == -1) {
+					if(LR == 1) this.piece.Face(3);
+					else if(LR == -1) this.piece.Face(5);
+					else this.piece.Face(4);
+				}
+				else {
+					if(LR == 1) this.piece.Face(2);
+					else if(LR == -1) this.piece.Face(6);
+				}
 			}
 			else {
-				if(LR == 1) this.piece.Move(2);
-				else if(LR == -1) this.piece.Move(6);
-			}
-		} else {
+				// moving
+				if(UD == 1) {
+					if(LR == 1) this.piece.Move(1);
+					else if(LR == -1) this.piece.Move(7);
+					else this.piece.Move(0);
+				} 
+				else if(UD == -1) {
+					if(LR == 1) this.piece.Move(3);
+					else if(LR == -1) this.piece.Move(5);
+					else this.piece.Move(4);
+				}
+				else {
+					if(LR == 1) this.piece.Move(2);
+					else if(LR == -1) this.piece.Move(6);
+				}
+			}	
+		}
+		else {
 			console.log("no pc");
 		}
 	}

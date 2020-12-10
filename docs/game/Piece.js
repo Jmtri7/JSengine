@@ -1,16 +1,22 @@
 class Piece {
-	constructor(width, height, x, y, board, direction) {
+	constructor(width, height, x, y, board, facing) {
 		this.width = width;
 		this.height = height;
 
 		this.x = x;
 		this.y = y;
 		this.board = board;
+		this.facing = facing;
+		this.direction = facing;
+	}
+
+	Face(direction) {
+		this.facing = direction;
 		this.direction = direction;
 	}
 
 	Move(direction) {
-		this.direction = direction;
+		this.Face(direction);
 
 		var oldX = this.x;
 		var oldY = this.y;
@@ -61,7 +67,7 @@ class Piece {
 		var centerX = this.x + this.width / 2;
 		var centerY = this.y + this.height / 2;
 		var pointerLength = 20;
-		switch(this.direction) {
+		switch(this.facing) {
 			case 0: renderer.DrawLine(centerX, centerY, centerX, centerY - pointerLength);
 			break;
 			case 1: renderer.DrawLine(centerX, centerY, centerX + pointerLength, centerY - pointerLength);
