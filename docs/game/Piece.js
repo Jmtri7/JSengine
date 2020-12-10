@@ -46,15 +46,8 @@ class Piece {
 			break;
 		}
 
-		var collisionDetected = this.board.DetectOutOfBounds(this);
-		for(var i = 0; i < this.board.pieces.length; i++) {
-			if(this.board.pieces[i] != this) {
-				collisionDetected = collisionDetected
-					|| this.board.DetectCollision(this.board.pieces[i], this);
-			}
-		}
-
-		if(collisionDetected) {
+		if(this.board.DetectOutOfBounds(this) || this.board.DetectCollision(this).length != 0) {
+			console.log("collision");
 			this.x = oldX;
 			this.y = oldY;
 		}

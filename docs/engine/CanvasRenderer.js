@@ -19,8 +19,8 @@ class CanvasRenderer {
 
   	DrawText(x, y, text, size) {
   		this.ctx.font = size + "px Arial";
-  		this.ctx.fillStyle = "#000000";
-		this.ctx.fillText(text, x, y); 
+  		this.ctx.fillStyle = "black";
+		this.ctx.fillText(text, x, y);
   	}
 
 	// DRAWING
@@ -45,6 +45,7 @@ class CanvasRenderer {
 	}
 
 	DrawRectangle(x, y, w, h) {
+		this.ctx.fillStyle = "#000000";
 		x += this.originX;
 		y += this.originY;
 		this.ctx.beginPath();

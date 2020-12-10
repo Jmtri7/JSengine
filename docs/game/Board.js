@@ -14,20 +14,32 @@ class Board {
 
 	DetectOutOfBounds(piece) {
 		return(
-			piece.x <= 0
-			|| piece.x + piece.width >= this.width
-			|| piece.y <= 0
-			|| piece.y + piece.height >= this.height
+			piece.x < 0
+			|| piece.x + piece.width > this.width
+			|| piece.y < 0
+			|| piece.y + piece.height > this.height
 		);
 	}
 
-	DetectCollision(piece1, piece2) {
+	IsCollision(piece1, piece2) {
 		return (
-  			piece1.x + piece1.width >= piece2.x
-			&& piece1.x <= piece2.x + piece2.width
-			&& piece1.y + piece1.height >= piece2.y
-  			&& piece1.y <= piece2.y + piece2.height
+  			piece1.x + piece1.width > piece2.x
+			&& piece1.x < piece2.x + piece2.width
+			&& piece1.y + piece1.height > piece2.y
+  			&& piece1.y < piece2.y + piece2.height
   		);
+	}
+
+	DetectCollision(piece) {
+		var colliders = [];
+
+		for(var i = 0; i < this.pieces.length; i++) {
+			if(this.pieces[i] != piece && this.IsCollision(this.pieces[i], piece)) {
+				colliders.push(this.pieces[i]);
+			}
+		}
+
+		return colliders;
 	}
 
 	// add pieces
@@ -58,7 +70,7 @@ class Board {
 
 	// render / update
 
-	Render(renderer) {
+	Render(renderer, input) {
 		if(this.renderView == 0) {
 			if(this.pc.piece != null) renderer.SetOrigin(renderer.c.width / 2 - this.pc.piece.x, renderer.c.height / 2 - this.pc.piece.y);
 
@@ -71,12 +83,14 @@ class Board {
 			renderer.SetOrigin(0, 0);
 			renderer.PaintRectangle(0, renderer.c.height / 2, renderer.c.width, renderer.c.height / 2, "#00ff00");
 		}
+
+		this.pc.Render(renderer, input);
 	}
 
-	Update(input) {
+	Update(renderer, input) {
 		if(input.IsKey(49)) this.renderView = 0;
 		else if(input.IsKey(50)) this.renderView = 1;
 
-		this.pc.Update(input);
+		this.pc.Update(renderer, input);
 	}
 }
