@@ -6,6 +6,7 @@ class Board {
 		this.pieces = [];
 
 		this.pc = new PlayerController(null);
+		this.ai = [];
 
 		this.renderView = 0;
 	}
@@ -48,24 +49,54 @@ class Board {
 		var piece = new Piece(width, height, x, y, this, direction);
 		this.pieces.push(piece);
 		this.pc.piece = piece;
+		return piece;
 	}
 
 	AddPiece(width, height, x, y, direction) {
-		this.pieces.push(new Piece(width, height, x, y, this, direction));
+		var piece = new Piece(width, height, x, y, this, direction);
+		this.pieces.push(piece);
+		return piece;
 	}
 
-	// perspective calculator
+	AddFollower(width, height, x, y, direction, target) {
+		var piece = new Piece(width, height, x, y, this, direction);
+		this.pieces.push(piece);
+
+		var ai = new AIController(piece);
+		ai.Follow(target);
+		ai.wander = true;
+		this.ai.push(ai);
+
+		return piece;
+	}
+
+	AddWanderer(width, height, x, y, direction) {
+		var piece = new Piece(width, height, x, y, this, direction);
+		this.pieces.push(piece);
+
+		var ai = new AIController(piece);
+		ai.wander = true;
+		this.ai.push(ai);
+
+		return piece;
+	}
+
+	// math
 
 	GetDistance(piece1, piece2) {
-		
+		return Math.sqrt(Math.pow(piece2.x - piece1.x, 2) + Math.pow(piece2.y - piece1.y, 2));
 	}
 
 	GetAngle(piece1, piece2) {
-		// if(dy >= 0) {
-		// 	var theta = Math.abs(Math.atan2(dy, dx));
-		// } else {
-		// 	var theta = 2 * Math.PI - Math.abs(Math.atan2(dy, dx));
-		// }
+		var dx = piece2.x - piece1.x;
+		var dy = piece2.y - piece1.y;
+		if(dy >= 0) {
+		 	var theta = Math.abs(Math.atan2(dy, dx));
+		} else {
+		 	var theta = 2 * Math.PI - Math.abs(Math.atan2(dy, dx));
+		}
+
+		return theta;
 	}
 
 	// render / update
@@ -92,5 +123,8 @@ class Board {
 		else if(input.IsKey(50)) this.renderView = 1;
 
 		this.pc.Update(renderer, input);
+		for(var i = 0; i < this.ai.length; i++) {
+			this.ai[i].Update(renderer, input);
+		}
 	}
 }
