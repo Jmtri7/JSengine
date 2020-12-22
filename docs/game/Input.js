@@ -29,12 +29,12 @@ class Input {
 
 		document.addEventListener('mousedown', (e) => {
 			this.mouse = true;
-			console.log("mouse down at " + this.cursorX + ", " + this.cursorY);
+			// console.log("mouse down at " + this.cursorX + ", " + this.cursorY);
 		});
 
 		document.addEventListener('mouseup', (e) => {
 			this.mouse = false;
-			console.log("mouse up at " + this.cursorX + ", " + this.cursorY);
+			// console.log("mouse up at " + this.cursorX + ", " + this.cursorY);
 		});
   	}
 
