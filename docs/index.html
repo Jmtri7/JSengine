@@ -5,21 +5,22 @@
 	<title>JSengine</title>
 </head>
 <body>
-<script src="engine/CanvasRenderer.js"></script>
-<script src="engine/Input.js"></script> 
+
+<script src="Matrix.js"></script>
+<script src="CanvasRenderer.js"></script>
+
 <script src="engine/Clock.js"></script>
 <script src="engine/Engine.js"></script>
 
-<script src="game/Game.js"></script>
-<script src="game/Board.js"></script>
-<script src="game/Piece.js"></script>
-
-<script src="game/controllers/PlayerController.js"></script>
-<script src="game/controllers/AIController.js"></script>
-
 <script type="text/javascript">
-	var engine = new Engine();
+	var canvas = new CanvasRenderer(200, 200);
+	canvas.DrawAxes();
+
+	var engine = new Engine(60);
 	engine.Start();
+
+	Matrix.Test3();
+
 </script>
 </body>
 </html>

@@ -6,7 +6,7 @@ class CanvasRenderer {
 		this.c = document.createElement('canvas');
 		this.c.width = width;
 		this.c.height = height;
-		this.c.style.border = "1px solid";
+		this.c.style.border = "1px solid black";
 
     	this.ctx = this.c.getContext("2d");
 
@@ -24,6 +24,21 @@ class CanvasRenderer {
   	}
 
 	// DRAWING
+
+	DrawAxes() {
+		if(this.originX >= 0 && this.originX <= this.c.width) {
+			this.ctx.beginPath();
+			this.ctx.moveTo(this.originX, 0);
+			this.ctx.lineTo(this.originX, this.c.height);
+			this.ctx.stroke();
+		}
+		if(this.originY >= 0 && this.originY <= this.c.height) {
+			this.ctx.beginPath();
+			this.ctx.moveTo(0, this.originY);
+			this.ctx.lineTo(this.c.height, this.originY);
+			this.ctx.stroke();
+		}
+	}
 
 	DrawLine(x1, y1, x2, y2) {
 		x1 += this.originX;

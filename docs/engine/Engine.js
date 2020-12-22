@@ -1,21 +1,51 @@
 class Engine {
-	constructor() {
-		this.renderer = new CanvasRenderer(800, 800);
-		this.input = new Input(this.renderer.c);
+	// speed in (updates/second)
+	constructor(game, speed) {
 		this.clock = new Clock();
+		this.accumulator = 0;
 
-		this.game = new Game();
+		// calculate FPS
+		this.frames = 0;
+		this.timer = 0;
+
+		this.period = (1 / speed) * 1000;
+
+		this.render = false;
+
+		this.game = game;
+	}
+
+	Run() {
+		var dt = this.clock.Tick();
+
+		this.accumulator += dt;
+		while(this.accumulator >= this.period) {
+			this.accumulator -= this.period;
+			this.render = true;
+
+			if(this.game != null && this.game.Update != null)
+				this.game.Update();
+		}
+
+		this.timer += dt;
+		if(this.render == true) {
+			this.render = false;
+
+			if(this.game != null && this.game.Render != null)
+				this.game.Render();
+
+			this.frames++;
+			if(this.timer >= 1000) {
+				console.log("FPS: " + this.frames);
+
+				this.frames = 0;
+				this.timer = 0;
+			}
+		}
 	}
 
 	Start() {
-		this.clock.Start();
-
-		var that = this;
-		this.interval = setInterval(function() {
-			that.input.Update();
-
-			that.game.Update(that.renderer, that.input);
-			that.game.Render(that.renderer, that.input);
-		}, 10);
+		var run = this.Run.bind(this);
+		this.interval = setInterval(run, 10);
 	}
 }
