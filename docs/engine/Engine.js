@@ -8,7 +8,7 @@ class Engine {
 		this.frames = 0;
 		this.timer = 0;
 
-		this.period = (1 / speed) * 1000;
+		this.dt = (1 / speed) * 1000;
 
 		this.render = false;
 
@@ -16,18 +16,18 @@ class Engine {
 	}
 
 	Run() {
-		var dt = this.clock.Tick();
+		var elapsed = this.clock.Tick();
 
-		this.accumulator += dt;
-		while(this.accumulator >= this.period) {
-			this.accumulator -= this.period;
+		this.accumulator += elapsed;
+		while(this.accumulator >= this.dt) {
+			this.accumulator -= this.dt;
 			this.render = true;
 
 			if(this.game != null && this.game.Update != null)
-				this.game.Update();
+				this.game.Update(this.dt);
 		}
 
-		this.timer += dt;
+		this.timer += elapsed;
 		if(this.render == true) {
 			this.render = false;
 
@@ -36,7 +36,7 @@ class Engine {
 
 			this.frames++;
 			if(this.timer >= 1000) {
-				console.log("FPS: " + this.frames);
+				// console.log("FPS: " + this.frames);
 
 				this.frames = 0;
 				this.timer = 0;

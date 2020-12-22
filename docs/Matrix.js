@@ -6,6 +6,8 @@ class Matrix {
 		this.array = array;
 	}
 
+	// Matrix Stuff
+
 	At(m, n) {
 		return this.array[m][n];
 	}
@@ -19,6 +21,30 @@ class Matrix {
 			output += "\n";
 		}
 		console.log(output);
+	}
+
+	static Sum(a, b) {
+		var array = [];
+		for(var m = 0; m < a.m; m++) {
+			var row = [];
+			for(var n = 0; n < a.n; n++) {
+				row.push(a.At(m, n) + b.At(m, n));
+			}
+			array.push(row);
+		}
+		return new Matrix(array);
+	}
+
+	static Difference(a, b) {
+		var array = [];
+		for(var m = 0; m < a.m; m++) {
+			var row = [];
+			for(var n = 0; n < a.n; n++) {
+				row.push(a.At(m, n) - b.At(m, n));
+			}
+			array.push(row);
+		}
+		return new Matrix(array);
 	}
 
 	static ScalarProduct(a, b) {
@@ -40,6 +66,8 @@ class Matrix {
 		}
 		return new Matrix(array);
 	}
+
+	// Vector Stuff
 
 	Rotate(rx, ry, rz) {
 		var cosRX = Math.cos(rx);
@@ -69,29 +97,7 @@ class Matrix {
 		return Matrix.VectorProduct(RZ, Matrix.VectorProduct(RY, Matrix.VectorProduct(RX, this)));
 	}
 
-	static Sum(a, b) {
-		var array = [];
-		for(var m = 0; m < a.m; m++) {
-			var row = [];
-			for(var n = 0; n < a.n; n++) {
-				row.push(a.At(m, n) + b.At(m, n));
-			}
-			array.push(row);
-		}
-		return new Matrix(array);
-	}
-
-	static Difference(a, b) {
-		var array = [];
-		for(var m = 0; m < a.m; m++) {
-			var row = [];
-			for(var n = 0; n < a.n; n++) {
-				row.push(a.At(m, n) - b.At(m, n));
-			}
-			array.push(row);
-		}
-		return new Matrix(array);
-	}
+	// Tests
 
 	static Test3() {
 		console.log("TEST 3 BEGIN");

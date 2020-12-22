@@ -7,19 +7,19 @@
 <body>
 
 <script src="Matrix.js"></script>
-<script src="CanvasRenderer.js"></script>
+
+<script src="game/Input.js"></script>
+<script src="game/CanvasRenderer.js"></script>
+<script src="game/Game.js"></script>
 
 <script src="engine/Clock.js"></script>
 <script src="engine/Engine.js"></script>
 
 <script type="text/javascript">
-	var canvas = new CanvasRenderer(200, 200);
-	canvas.DrawAxes();
+	var game = new Game(200, 200);
 
-	var engine = new Engine(60);
+	var engine = new Engine(game, 60);
 	engine.Start();
-
-	Matrix.Test3();
 
 </script>
 </body>
