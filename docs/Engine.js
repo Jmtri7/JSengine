@@ -7,7 +7,6 @@ class Engine {
 		this.updatePeriod = (1 / speed) * 1000;
 
 		this.game = game;
-		
 
 		// Timers for updating and rendering
 		this.timeSinceLastUpdate = 0;
@@ -19,6 +18,7 @@ class Engine {
 		this.render = false;
 	}
 	Start() {
+		if(this.interval != undefined) clearInterval(this.interval);
 		this.interval = setInterval(this.Run.bind(this), 10); // Tries to Run every 10 ms
 	}
 	Run() {
@@ -30,19 +30,21 @@ class Engine {
 			this.timeSinceLastUpdate += timeSinceLastRun;
 			this.timeSinceLastFrame += timeSinceLastRun;
 
+			this.render = this.timeSinceLastUpdate >= this.updatePeriod;
+
 			this.Update();
 			if(this.render) this.Render();
+		} else {
+			console.log("No game found!");
+			clearInterval(this.interval);
 		}
 	}
 	Update() {
-		if(this.timeSinceLastUpdate >= this.updatePeriod) {
-			this.render = true;
-		}
 		while(this.timeSinceLastUpdate >= this.updatePeriod) {
 
 			this.timeSinceLastUpdate -= this.updatePeriod;
 
-			if(this.game != null && this.game.Update != null) {
+			if(this.game.Update != null) {
 				this.game.Update(this.updatePeriod);
 			} else {
 				console.log("No game.Update method found!");
@@ -52,7 +54,7 @@ class Engine {
 		}
 	}
 	Render() {
-		if(this.game != null && this.game.Render != null) {
+		if(this.game.Render != null) {
 
 			this.game.Render();
 			this.frameCounter++;
