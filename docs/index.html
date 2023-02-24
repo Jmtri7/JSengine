@@ -2,18 +2,17 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>JSengine</title>
+	<title>JS Engine</title>
 </head>
 <body>
-<script src="Matrix.js"></script>
-<script src="Input.js"></script>
-<script src="CanvasRenderer.js"></script>
-<script src="Engine.js"></script>
+<script src="Geometry.js"></script>
+<script src="CanvasEngine.js"></script>
 <script src="Game.js"></script>
 <script type="text/javascript">
 	
-	var game = new Game(600, 300, 60);
-	game.Start();
+var game = new Game(600, 400, 60);
+document.body.appendChild(game.c);
+game.Start();
 
 </script>
 </body>
