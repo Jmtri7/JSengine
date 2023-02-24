@@ -19,8 +19,9 @@ class Point {
 		let dx = this.x - center.x;
 		let dy = this.y - center.y;
 		let r = Math.sqrt(dx * dx + dy * dy);
-		this.x = center.x + r * Math.cos(angle / 180 * Math.PI);
-		this.y = center.y + r * Math.sin(angle / 180 * Math.PI);
+		let theta = this.angleFrom(center);
+		this.x = center.x + r * Math.cos(angle / 180 * Math.PI + theta);
+		this.y = center.y + r * Math.sin(angle / 180 * Math.PI + theta);
 		return this;
 	}
 	distanceFrom(that) {
