@@ -1,3 +1,32 @@
+class Game extends CanvasEngine {
+	constructor(windowWidth, windowHeight, speed) {
+		super(windowWidth, windowHeight, speed);
+
+		this.center = new Point(0, 0);
+		this.vertices = [];
+		let n = 5;
+		for(var i = 0; i < n; i++) {
+			this.vertices.push(this.center.copy().translate(100, 0).rotate(this.center, 360 / n * i));
+		}
+
+	}
+	Update(dt) {
+		for(var i = 0; i < this.vertices.length; i++) {
+			this.vertices[i].rotate(this.center, dt / 16);
+		}
+	}
+	Render() {
+		this.Clear();
+		//this.DrawAxes();
+		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "red");
+
+		this.PaintPath(this.vertices, "red");
+		
+	}
+	DrawEdge(edge) {
+		this.DrawLine(edge.p1.x, edge.p1.y, edge.p2.x, edge.p2.y);
+	}
+}
 class Rig extends Edge {
 	constructor(p1, p2) {
 		super(p1, p2);
@@ -32,45 +61,5 @@ class Rig extends Edge {
 		for(var i = 0; i < this.children.length; i++) {
 			this.children[i].render(renderer);
 		}
-	}
-}
-class Game extends CanvasEngine {
-	constructor(windowWidth, windowHeight, speed) {
-		super(windowWidth, windowHeight, speed);
-
-		this.rig = new Rig(new Point(0, 0), new Point(100, 0))
-		
-		let r1 = this.rig.extrudePolar(50, 90);
-		let r2 = this.rig.extrudePolar(50, 0);
-		let r3 = this.rig.extrudePolar(50, -90);
-
-		r1.extrudePolar(25, 0)
-		r1.extrudePolar(25, 90)
-		r1.extrudePolar(25, 180)
-		r1.extrudePolar(25, 270)
-
-		r2.extrudePolar(25, 0)
-		r2.extrudePolar(25, 90)
-		r2.extrudePolar(25, 180)
-		r2.extrudePolar(25, 270)
-
-		r3.extrudePolar(25, 0)
-		r3.extrudePolar(25, 90)
-		r3.extrudePolar(25, 180)
-		r3.extrudePolar(25, 270)
-	}
-	Update(dt) {
-		this.rig.rotate(this.rig.p1, dt / 16);
-	}
-	Render() {
-		this.Clear();
-		this.DrawAxes();
-		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "red");
-
-		this.rig.render(this);
-		
-	}
-	DrawEdge(edge) {
-		this.DrawLine(edge.p1.x, edge.p1.y, edge.p2.x, edge.p2.y);
 	}
 }

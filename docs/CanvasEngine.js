@@ -60,6 +60,22 @@ class CanvasEngine {
 		this.ctx.lineTo(x2, y2);
 		this.ctx.stroke();
 	}
+	DrawPath(vertices) {
+		let x = vertices[0].x + this.origin.x;
+		let y = vertices[0].y + this.origin.y;
+
+		this.ctx.beginPath();
+		this.ctx.moveTo(x, y);
+
+		for(var i = 1; i < vertices.length; i++) {
+			x = vertices[i].x + this.origin.x;
+			y = vertices[i].y + this.origin.y;
+			this.ctx.lineTo(x, y);
+		}
+
+		this.ctx.closePath();
+		this.ctx.stroke(); 
+	}
 	DrawCircle(x, y, r) {
 		x += this.origin.x;
 		y += this.origin.y;
@@ -74,6 +90,23 @@ class CanvasEngine {
 		this.ctx.beginPath();
 		this.ctx.rect(x, y, w, h);
 		this.ctx.stroke();
+	}
+	PaintPath(vertices, color) {
+		let x = vertices[0].x + this.origin.x;
+		let y = vertices[0].y + this.origin.y;
+
+		this.ctx.beginPath();
+		this.ctx.moveTo(x, y);
+
+		for(var i = 1; i < vertices.length; i++) {
+			x = vertices[i].x + this.origin.x;
+			y = vertices[i].y + this.origin.y;
+			this.ctx.lineTo(x, y);
+		}
+
+		this.ctx.closePath();
+		this.ctx.fillStyle = color;
+		this.ctx.fill(); 
 	}
 	PaintCircle(x, y, r, color) {
 		x += this.origin.x;
