@@ -4,6 +4,7 @@ class Game extends CanvasEngine {
 
 		this.center = new Point(0, 0);
 		this.vertices = [];
+		
 		let n = 5;
 		for(var i = 0; i < n; i++) {
 			this.vertices.push(this.center.copy().translate(100, 0).rotate(this.center, 360 / n * i));
