@@ -1,4 +1,4 @@
-class CanvasEngine {
+class QuickCanvas {
 	constructor(width, height, speed) {
 
 		// CANVAS
