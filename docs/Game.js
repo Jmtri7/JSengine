@@ -8,6 +8,11 @@ class Rig extends Edge {
 		this.children.push(r2);
 		return r2;
 	}
+	extrudePolar(r, theta) {
+		let p3 = this.p2.copy().translate(r, 0);
+		p3.rotate(this.p2, theta);
+		return this.extrude(p3);
+	}
 	rotate(center, angle) {
 		this.p1.rotate(center, angle);
 		this.p2.rotate(center, angle);
@@ -34,9 +39,25 @@ class Game extends CanvasEngine {
 		super(windowWidth, windowHeight, speed);
 
 		this.rig = new Rig(new Point(0, 0), new Point(100, 0))
-		let r1 = this.rig.extrude(new Point(100, 50))
-		let r2 = this.rig.extrude(new Point(100, -50))
-		let r3 = this.rig.extrude(new Point(150, 0))
+		
+		let r1 = this.rig.extrudePolar(50, 90);
+		let r2 = this.rig.extrudePolar(50, 0);
+		let r3 = this.rig.extrudePolar(50, -90);
+
+		r1.extrudePolar(25, 0)
+		r1.extrudePolar(25, 90)
+		r1.extrudePolar(25, 180)
+		r1.extrudePolar(25, 270)
+
+		r2.extrudePolar(25, 0)
+		r2.extrudePolar(25, 90)
+		r2.extrudePolar(25, 180)
+		r2.extrudePolar(25, 270)
+
+		r3.extrudePolar(25, 0)
+		r3.extrudePolar(25, 90)
+		r3.extrudePolar(25, 180)
+		r3.extrudePolar(25, 270)
 	}
 	Update(dt) {
 		this.rig.rotate(this.rig.p1, dt / 16);
