@@ -20,12 +20,8 @@ class App1 extends QuickCanvas {
 		this.Clear();
 
 		this.DrawAxes();
-		
-		
 
 		this.PaintPath(this.vertices, "red");
-		
-
 
 		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "green");
 	}
