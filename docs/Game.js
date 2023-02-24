@@ -28,39 +28,11 @@ class Game extends CanvasEngine {
 		this.DrawLine(edge.p1.x, edge.p1.y, edge.p2.x, edge.p2.y);
 	}
 }
-class Rig extends Edge {
-	constructor(p1, p2) {
-		super(p1, p2);
-		this.children = [];
-	}
-	extrude(p3) {
-		let r2 = new Rig(this.p2, p3);
-		this.children.push(r2);
-		return r2;
-	}
-	extrudePolar(r, theta) {
-		let p3 = this.p2.copy().translate(r, 0);
-		p3.rotate(this.p2, theta);
-		return this.extrude(p3);
-	}
-	rotate(center, angle) {
-		this.p1.rotate(center, angle);
-		this.p2.rotate(center, angle);
-		for(var i = 0; i < this.children.length; i++) {
-			this.children[i].rotateChild(center, angle);
-		}
-		return this;
-	}
-	rotateChild(center, angle) {
-		this.p2.rotate(center, angle);
-		for(var i = 0; i < this.children.length; i++) {
-			this.children[i].rotateChild(center, angle);
-		}
-	}
-	render(renderer) {
-		renderer.DrawEdge(this);
-		for(var i = 0; i < this.children.length; i++) {
-			this.children[i].render(renderer);
-		}
-	}
-}
+	
+var GAME_1 = new Game(600, 400, 60);
+document.body.appendChild(GAME_1.c);
+GAME_1.Start();
+
+var GAME_2 = new Game(600, 400, 60);
+document.body.appendChild(GAME_2.c);
+GAME_2.Start();
