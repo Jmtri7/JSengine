@@ -1,4 +1,4 @@
-class App2 extends CanvasEngine {
+class App2 extends QuickCanvas {
 	constructor(windowWidth, windowHeight, speed) {
 		super(windowWidth, windowHeight, speed);
 
