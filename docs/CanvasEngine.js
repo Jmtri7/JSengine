@@ -50,7 +50,7 @@ class CanvasEngine {
   		this.ctx.fillStyle = "black";
 		this.ctx.fillText(text, x, y);
   	}
-	DrawLine(x1, y1, x2, y2) {
+	DrawLine(x1, y1, x2, y2, color) {
 		x1 += this.origin.x;
 		y1 += this.origin.y;
 		x2 += this.origin.x;
@@ -58,6 +58,11 @@ class CanvasEngine {
 		this.ctx.beginPath();
 		this.ctx.moveTo(x1, y1);
 		this.ctx.lineTo(x2, y2);
+		if(color == undefined) {
+			this.ctx.strokeStyle = "black";
+		} else {
+			this.ctx.strokeStyle = color;
+		}
 		this.ctx.stroke();
 	}
 	DrawPath(vertices) {
@@ -134,8 +139,8 @@ class CanvasEngine {
 		this.ctx.clearRect(0, 0, this.c.width, this.c.height);
 	}
 	DrawAxes() {
-		this.DrawLine(0, -this.c.height / 2, 0, this.c.height / 2);
-		this.DrawLine(-this.c.width / 2, 0, this.c.width, 0);
+		this.DrawLine(0, -this.c.height / 2, 0, this.c.height / 2, "gray");
+		this.DrawLine(-this.c.width / 2, 0, this.c.width, 0, "gray");
 	}
   	SetOrigin(x, y) {
 		this.origin.x = x;

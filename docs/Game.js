@@ -18,7 +18,9 @@ class Game extends CanvasEngine {
 	}
 	Render() {
 		this.Clear();
-		//this.DrawAxes();
+
+		this.DrawAxes();
+		
 		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "red");
 
 		this.PaintPath(this.vertices, "red");
