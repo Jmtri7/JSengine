@@ -21,15 +21,15 @@ class App1 extends CanvasEngine {
 
 		this.DrawAxes();
 		
-		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "red");
+		
 
 		this.PaintPath(this.vertices, "red");
 		
+
+
+		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "green");
 	}
-	DrawEdge(edge) {
-		this.DrawLine(edge.p1.x, edge.p1.y, edge.p2.x, edge.p2.y);
-	}
-}	
-var APP1 = new App1(600, 400, 60);
+}
+var APP1 = new App1(200, 200, 60);
 document.body.appendChild(APP1.c);
 APP1.Start();
