@@ -1,6 +1,8 @@
 class QuickCanvas {
 	constructor(width, height, speed) {
 
+		this.showFPS = false;
+
 		// CANVAS
 
 		this.c = document.createElement('canvas');
@@ -179,7 +181,7 @@ class QuickCanvas {
 			this.frameCounter++;
 
 			if(this.timeSinceLastFrame >= 1000) {
-				console.log("FPS: " + this.frameCounter / this.timeSinceLastFrame * 1000);
+				if(this.showFPS) console.log("FPS: " + this.frameCounter / this.timeSinceLastFrame * 1000);
 				this.frameCounter = 0;
 				this.timeSinceLastFrame = 0;
 			}

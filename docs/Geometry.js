@@ -19,7 +19,7 @@ class Point {
 		let dx = this.x - center.x;
 		let dy = this.y - center.y;
 		let r = Math.sqrt(dx * dx + dy * dy);
-		let theta = this.angleFrom(center);
+		let theta = this.angleFrom(center) * Math.PI / 180;
 		this.x = center.x + r * Math.cos(angle / 180 * Math.PI + theta);
 		this.y = center.y + r * Math.sin(angle / 180 * Math.PI + theta);
 		return this;
@@ -30,8 +30,8 @@ class Point {
 	angleFrom(that) {
 		var dx = this.x - that.x;
 		var dy = this.y - that.y;
-		var atan = Math.atan2(dy, dx);
-		if(atan < 0) atan += 2 * Math.PI;
+		var atan = Math.atan2(dy, dx) * 180 / Math.PI;
+		if(atan < 0) atan += 360;
 		return atan;
 	}
 	extrude(dx, dy) {
