@@ -5,20 +5,15 @@
 	<title>JSengine</title>
 </head>
 <body>
-
-<script src="game/math/Matrix.js"></script>
-
-<script src="game/Input.js"></script>
-<script src="game/CanvasRenderer.js"></script>
-<script src="game/Game.js"></script>
-
+<script src="Matrix.js"></script>
+<script src="Input.js"></script>
+<script src="CanvasRenderer.js"></script>
 <script src="Engine.js"></script>
-
+<script src="Game.js"></script>
 <script type="text/javascript">
-	var game = new Game(200, 200);
-
-	var engine = new Engine(game, 60);
-	engine.Start();
+	
+	var game = new Game(600, 300, 60);
+	game.Start();
 
 </script>
 </body>

@@ -1,5 +1,6 @@
-class Game {
-	constructor(windowWidth, windowHeight) {
+class Game extends Engine {
+	constructor(windowWidth, windowHeight, speed) {
+		super(speed);
 		this.canvas = new CanvasRenderer(windowWidth, windowHeight);
 		this.canvas.SetOrigin(windowWidth / 2, windowHeight / 2);
 		this.input = new Input(this.canvas.c);
