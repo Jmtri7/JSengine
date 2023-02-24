@@ -1,4 +1,4 @@
-class Game extends CanvasEngine {
+class App2 extends CanvasEngine {
 	constructor(windowWidth, windowHeight, speed) {
 		super(windowWidth, windowHeight, speed);
 
@@ -29,12 +29,7 @@ class Game extends CanvasEngine {
 	DrawEdge(edge) {
 		this.DrawLine(edge.p1.x, edge.p1.y, edge.p2.x, edge.p2.y);
 	}
-}
-	
-var GAME_1 = new Game(600, 400, 60);
-document.body.appendChild(GAME_1.c);
-GAME_1.Start();
-
-var GAME_2 = new Game(600, 400, 60);
-document.body.appendChild(GAME_2.c);
-GAME_2.Start();
+}	
+var APP2 = new App2(600, 400, 60);
+document.body.appendChild(APP2.c);
+APP2.Start();
