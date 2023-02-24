@@ -10,75 +10,64 @@ class Mesh {
 	createPoint(x, y) {
 		return this.addPoint(new Point(x, y));
 	}
+	addEdge(edge) {
+		this.edges.push(edge);
+		return edge;
+	}
 	createEdge(p1, p2) {
-		this.edges.push(new Edge());
+		if(!this.points.includes(p1)) this.addPoint(p1);
+		if(!this.points.includes(p2)) this.addPoint(p2);
+		return this.addEdge(new Edge(p1, p2));
 	}
 	render(renderer) {
+		for(var i = 0; i < this.edges.length; i++) {
+			renderer.DrawLine(this.edges[i].p1.x, this.edges[i].p1.y, this.edges[i].p2.x, this.edges[i].p2.y);
+		}
 		for(var i = 0; i < this.points.length; i++) {
 			renderer.PaintCircle(this.points[i].x, this.points[i].y, 3, "black");
 		}
 	}
 }
-class Waver extends Edge {
-	constructor(x, y, r, theta, waveMax) {
-		super(new Point(x, y), new Point(x + r * Math.cos(theta), y + r * Math.sin(theta)));
+class Puppet extends Mesh {
+	constructor(x, y) {
+		super();
 
-		this.waveAngle = 0;
-		this.waveMax = waveMax;
+		this.torso = this.createEdge(new Point(x, y), new Point(x, y + 100));
 
-		this.direction = 1;
+		this.leftUpperArm = this.createEdge(this.torso.p1, this.torso.p1.copy().translate(-50, 50));
+		this.leftLowerArm = this.createEdge(this.leftUpperArm.p2, this.leftUpperArm.p2.copy().translate(-50, -50));
 
+		this.rightUpperArm = this.createEdge(this.torso.p1, this.torso.p1.copy().translate(50, 50));
+		this.rightLowerArm = this.createEdge(this.rightUpperArm.p2, this.rightUpperArm.p2.copy().translate(50, -50));
+
+		this.leftUpperLeg = this.createEdge(this.torso.p2, this.torso.p2.copy().translate(-50, 50));
+		this.leftLowerLeg = this.createEdge(this.leftUpperLeg.p2, this.leftUpperLeg.p2.copy().translate(-50, 50));
+
+		this.rightUpperLeg = this.createEdge(this.torso.p2, this.torso.p2.copy().translate(50, 50));
+		this.rightLowerLeg = this.createEdge(this.rightUpperLeg.p2, this.rightUpperLeg.p2.copy().translate(50, 50));
 	}
-	getAngle() {
-		return this.p2.angleFrom(this.p1);
-	}
-	update(dt) {
-
-		let dTheta = dt / 16;
-
-		this.waveAngle += this.direction * dTheta;
-
-		this.rotate(this.p1, this.direction * dTheta);
-
-		if(this.waveAngle > this.waveMax) {
-			this.direction *= -1;
-			let excess = this.waveAngle - this.waveMax;
-			this.waveAngle -= 2 * excess;
-			this.rotate(this.p1, this.direction * 2 * excess);
-		}
-		if(this.waveAngle < 0) {
-			this.direction *= -1;
-			let excess = -this.waveAngle;
-			this.waveAngle += 2 * excess;
-			this.rotate(this.p1, this.direction * 2 * excess);
-		}
-		
-	}
-	render(renderer) {
-		renderer.DrawLine(this.p1.x, this.p1.y, this.p2.x, this.p2.y);
+	rotateLeftShoulder(theta) {
+		this.leftLowerArm.rotate(this.leftUpperArm.p1, theta);
+		this.leftUpperArm.rotate(this.leftUpperArm.p1, theta);
 	}
 }
 class App2 extends QuickCanvas {
 	constructor(windowWidth, windowHeight, speed) {
 		super(windowWidth, windowHeight, speed);
 
-		this.mesh1 = new Mesh();
-		let p1 = this.mesh1.createPoint(100, 100);
-		let p2 = this.mesh1.addPoint(p1.copy().translate(50, 0));
-
-
-		this.c1 = new Waver(0, 0, 100, 0, 90);
+		this.fencer = new Puppet(50, -50);
+		
 	}
 	Update(dt) {
-		this.c1.update(dt);
+	
+		this.fencer.rotateLeftShoulder(dt / 16);
+
 	}
 	Render() {
 		this.Clear();
 		this.DrawAxes();
 
-		this.mesh1.render(this);
-
-		this.c1.render(this);
+		this.fencer.render(this);
 		
 		this.PaintRectangle(this.cursor.x - 5, this.cursor.y - 5, 10, 10, "red");
 	}
