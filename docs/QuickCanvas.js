@@ -11,9 +11,6 @@ class QuickCanvas {
 		this.c.style.border = "1px solid black";
     	this.ctx = this.c.getContext("2d");
 
-		this.origin = new Point(0, 0);
-		this.SetOrigin(width / 2, height / 2);
-
     	// ENGINE
 
 		this.timeLastRun = new Date().getTime();
@@ -39,6 +36,7 @@ class QuickCanvas {
 		this.mouseDown = false;
 		this.mouseUp = false;
 
+		this.origin = new Point(0, 0);
 		this.cursor = new Point(0, 0);
 	}
 	Update(dt) {
@@ -53,10 +51,6 @@ class QuickCanvas {
 		this.ctx.fillText(text, x, y);
   	}
 	DrawLine(x1, y1, x2, y2, color) {
-		x1 += this.origin.x;
-		y1 += this.origin.y;
-		x2 += this.origin.x;
-		y2 += this.origin.y;
 		this.ctx.beginPath();
 		this.ctx.moveTo(x1, y1);
 		this.ctx.lineTo(x2, y2);
@@ -68,56 +62,44 @@ class QuickCanvas {
 		this.ctx.stroke();
 	}
 	DrawPath(vertices) {
-		let x = vertices[0].x + this.origin.x;
-		let y = vertices[0].y + this.origin.y;
-
+		let x = vertices[0].x;
+		let y = vertices[0].y;
 		this.ctx.beginPath();
 		this.ctx.moveTo(x, y);
-
 		for(var i = 1; i < vertices.length; i++) {
-			x = vertices[i].x + this.origin.x;
-			y = vertices[i].y + this.origin.y;
+			x = vertices[i].x;
+			y = vertices[i].y;
 			this.ctx.lineTo(x, y);
 		}
-
 		this.ctx.closePath();
 		this.ctx.stroke(); 
 	}
 	DrawCircle(x, y, r) {
-		x += this.origin.x;
-		y += this.origin.y;
 		this.ctx.beginPath();
 		this.ctx.arc(x, y, r, 0, 2 * Math.PI);
 		this.ctx.stroke();
 	}
 	DrawRectangle(x, y, w, h) {
 		this.ctx.fillStyle = "#000000";
-		x += this.origin.x;
-		y += this.origin.y;
 		this.ctx.beginPath();
 		this.ctx.rect(x, y, w, h);
 		this.ctx.stroke();
 	}
 	PaintPath(vertices, color) {
-		let x = vertices[0].x + this.origin.x;
-		let y = vertices[0].y + this.origin.y;
-
+		let x = vertices[0].x;
+		let y = vertices[0].y;
 		this.ctx.beginPath();
 		this.ctx.moveTo(x, y);
-
 		for(var i = 1; i < vertices.length; i++) {
-			x = vertices[i].x + this.origin.x;
-			y = vertices[i].y + this.origin.y;
+			x = vertices[i].x;
+			y = vertices[i].y;
 			this.ctx.lineTo(x, y);
 		}
-
 		this.ctx.closePath();
 		this.ctx.fillStyle = color;
 		this.ctx.fill();
 	}
 	PaintCircle(x, y, r, color) {
-		x += this.origin.x;
-		y += this.origin.y;
 		this.ctx.beginPath();
 		this.ctx.arc(x, y, r, 0, 2 * Math.PI);
 		this.ctx.closePath();
@@ -125,33 +107,20 @@ class QuickCanvas {
 		this.ctx.fill();
 	}
 	PaintRectangle(x, y, w, h, color) {
-		x += this.origin.x;
-		y += this.origin.y;
 		this.ctx.beginPath();
 		this.ctx.rect(x, y, w, h);
 		this.ctx.fillStyle = color;
 		this.ctx.fill();
 	}
 	ClearRectangle(x, y, w, h) {
-		x += this.origin.x;
-		y += this.origin.y;
 		this.ctx.clearRect(x, y, w, h);
 	}
 	Clear() {
 		this.ctx.clearRect(0, 0, this.c.width, this.c.height);
 	}
-	DrawAxes() {
-		this.DrawLine(0, -this.c.height / 2, 0, this.c.height / 2, "gray");
-		this.DrawLine(-this.c.width / 2, 0, this.c.width, 0, "gray");
-	}
-  	SetOrigin(x, y) {
-		this.origin.x = x;
-		this.origin.y = y;
-	}
 	UpdateMouse() {
   		this.mouseDown = this.mouse && !this.mouseLast;
   		this.mouseUp = !this.mouse && this.mouseLast;
-
   		this.mouseLast = this.mouse;
   	}
   	IsKey(code) {
@@ -203,8 +172,8 @@ class QuickCanvas {
 		});
 		document.addEventListener('mousemove', (e) => {
 			var canvas = this.c.getBoundingClientRect();
-			this.cursor.x = e.clientX - canvas.left - this.origin.x;
-			this.cursor.y = e.clientY - canvas.top - this.origin.y;
+			this.cursor.x = e.clientX - canvas.left;
+			this.cursor.y = e.clientY - canvas.top;
 			//console.log("mouse at " + this.cursorX + ", " + this.cursorY);
 		});
 		document.addEventListener('mousedown', (e) => {
