@@ -1,3 +1,16 @@
+class Vector {
+	constructor(r, a) {
+		this.r = r;
+		this.a = a;
+		
+	}
+	get x() {
+		return this.r * Math.cos(this.a / 180 * Math.PI);
+	}
+	get y() {
+		return this.r * Math.sin(this.a / 180 * Math.PI);
+	}
+}
 class Point {
 	constructor(x, y) {
 		this.x = x;

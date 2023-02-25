@@ -113,7 +113,7 @@ class QuickCanvas {
 
 		this.ctx.closePath();
 		this.ctx.fillStyle = color;
-		this.ctx.fill(); 
+		this.ctx.fill();
 	}
 	PaintCircle(x, y, r, color) {
 		x += this.origin.x;
