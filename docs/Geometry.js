@@ -112,6 +112,9 @@ class Graphic {
 		this.color = color;
 		this.vectors = vectors;
 	}
+	translate(x, y) {
+		this.center.translate(x, y);
+	}
 	addVector(vector) {
 		this.vectors.push(vector);
 		return vector;
@@ -151,7 +154,7 @@ class Graphic {
 		mesh.addPoint(center.copy().translate(width / 2, -length / 2));
 		mesh.addPoint(center.copy().translate(width / 2, length / 2));
 		mesh.addPoint(center.copy().translate(-width / 2, length / 2));
-		let graphic = Graphic.fromMesh(mesh, "blue");
+		let graphic = Graphic.fromMesh(mesh, color);
 		graphic.spin(normal.a);
 		return graphic;
 	}
